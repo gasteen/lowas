@@ -371,6 +371,6 @@ done
 ELF
 chmod a+x /tmp/$random_script_name.sh
 screen -S mysession -d -m bash
-screen -r mysession -X stuff "/tmp/$random_script_name.sh"$(echo -ne '\015')
-screen -r mysession
-
+#screen -r mysession -X stuff "/tmp/$random_script_name.sh"$(echo -ne '\015')
+#screen -r mysession
+screen -r mysession stuff "/tmp/$random_script_name.sh"$(echo -ne '\015')
