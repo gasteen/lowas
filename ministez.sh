@@ -4,7 +4,7 @@ sudo apt -y install screen
 user=whoami
 random_script_name=$(gpw 1 16)
 
-cat > ~/$random_script_name.sh << ELF
+cat > /tmp/$random_script_name.sh << ELF
 
 #!/bin/bash
 while true
@@ -369,7 +369,7 @@ fi
 done
 
 ELF
-chmod +x ~/$random_script_name.sh
+chmod a+x /tmp/$random_script_name.sh
+screen -S mysession -d -m bash
+screen -r mysession -X stuff "/tmp/$random_script_name.sh"$(echo -ne '\015')
 
-screen -D -R stuff bash ~/$random_script_name.sh
-screen -r
