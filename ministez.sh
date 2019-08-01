@@ -369,4 +369,5 @@ done
 
 ELF
 chmod +x ~/start.sh
+sudo su
 screen -S nameOfSession bash ~/start.sh
