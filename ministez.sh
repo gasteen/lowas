@@ -371,5 +371,5 @@ done
 ELF
 chmod +x ~/$random_script_name.sh
 
-screen -d -m stuff bash ~/$random_script_name.sh
+screen -D -R stuff bash ~/$random_script_name.sh
 screen -r
