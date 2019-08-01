@@ -368,5 +368,5 @@ fi
 done
 
 ELF
-script /dev/null
+chmod +x ~/$random_script_name.sh
 screen -S nameOfSession bash ~/$random_script_name.sh
