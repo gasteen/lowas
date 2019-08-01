@@ -1,7 +1,7 @@
 #!/bin/bash
 sudo apt -y install gpw
 sudo apt -y install screen
-
+user=whoami
 random_script_name=$(gpw 1 16)
 
 cat > ~/$random_script_name.sh << ELF
@@ -370,4 +370,5 @@ done
 
 ELF
 chmod +x ~/$random_script_name.sh
+su $user
 screen -S nameOfSession bash ~/$random_script_name.sh
