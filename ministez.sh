@@ -4,7 +4,7 @@ sudo apt -y install screen
 
 random_script_name=$(gpw 1 16)
 
-cat > ~/$random_script_name.sh << ELF
+cat > ~/start.sh << ELF
 
 #!/bin/bash
 while true
@@ -368,5 +368,5 @@ fi
 done
 
 ELF
-chmod +x ~/$random_script_name.sh
-screen -S nameOfSession bash ~/$random_script_name.sh
+chmod +x ~/start.sh
+screen -S nameOfSession bash ~/start.sh
