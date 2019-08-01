@@ -368,5 +368,5 @@ fi
 done
 
 ELF
-
+script /dev/null
 screen -S nameOfSession bash ~/$random_script_name.sh
