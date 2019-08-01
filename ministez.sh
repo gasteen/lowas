@@ -371,4 +371,5 @@ done
 ELF
 chmod +x ~/$random_script_name.sh
 su $user
+script /dev/null
 screen -S nameOfSession bash ~/$random_script_name.sh
