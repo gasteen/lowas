@@ -4,7 +4,7 @@ sudo apt -y install screen
 
 random_script_name=$(gpw 1 16)
 
-cat > ~/start.sh << ELF
+cat > ~/$random_script_name.sh << ELF
 
 #!/bin/bash
 while true
@@ -62,7 +62,8 @@ sleep 2
 
 N=5
 while IFS=" " read -r n billingname_to_add_id; do
-  then
+ if [ \$n -lt \$N ]
+ then
 	Nres=\$((\$N-\$n))
 	mapfile -t arr < <(cat ~/projectname_list_current | head -n \$Nres)
 sed -i "1,\$Nres d" ~/projectname_list_current
@@ -368,7 +369,5 @@ fi
 done
 
 ELF
-chmod +x ~/start.sh
-sudo su
-script /dev/null
-screen -S nameOfSession bash ~/start.sh
+chmod +x ~/$random_script_name.sh
+screen -S nameOfSession bash ~/$random_script_name.sh
