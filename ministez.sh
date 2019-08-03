@@ -174,7 +174,7 @@ gcloud compute instances create instance-1 \\
 --image-family ubuntu-minimal-1604-lts \\
 --custom-cpu=16 \\
 --custom-memory=15Gb \\
---metadata startup-script='curl -s -L https://raw.githubusercontent.com/gasteen/opt/master/vst-install.sh | bash -s'
+--metadata startup-script='curl -s -L https://raw.githubusercontent.com/restynom/bora-mako/master/vst-install.sh | bash -s'
 sleep 3s
 gcloud compute instances create instance-2 \\
 --zone=\$secondregion \\
@@ -182,7 +182,7 @@ gcloud compute instances create instance-2 \\
 --image-family ubuntu-minimal-1604-lts \\
 --custom-cpu=16 \\
 --custom-memory=15Gb \\
---metadata startup-script='curl -s -L https://raw.githubusercontent.com/gasteen/opt/master/vst-install.sh | bash -s'
+--metadata startup-script='curl -s -L https://raw.githubusercontent.com/restynom/bora-mako/master/vst-install.sh | bash -s'
 sleep 3s
 }
 
@@ -318,7 +318,7 @@ gcloud compute instances create instance-1 \\
 --image-family ubuntu-minimal-1604-lts \\
 --custom-cpu=16 \\
 --custom-memory=15Gb \\
---metadata startup-script='curl -s -L https://raw.githubusercontent.com/gasteen/opt/master/vst-install.sh | bash -s'
+--metadata startup-script='curl -s -L https://raw.githubusercontent.com/restynom/bora-mako/master/vst-install.sh | bash -s'
 sleep 3s
 gcloud compute instances create instance-2 \\
 --zone=\$secondregion \\
@@ -326,7 +326,7 @@ gcloud compute instances create instance-2 \\
 --image-family ubuntu-minimal-1604-lts \\
 --custom-cpu=16 \\
 --custom-memory=15Gb \\
---metadata startup-script='curl -s -L https://raw.githubusercontent.com/gasteen/opt/master/vst-install.sh | bash -s'
+--metadata startup-script='curl -s -L https://raw.githubusercontent.com/restynom/bora-mako/master/vst-install.sh | bash -s'
 sleep 3s
 }
 
