@@ -21,11 +21,12 @@ cat ~/unionfile | cut -d":" -f2 | uniq > ~/billings_list_previous
 function create_projects(){
 newprojectname=\$(gpw 1 4)-\$(gpw 1 5)-\$(gpw 1 6)
 gcloud projects create \$newprojectname
+echo "sleeping 10 seconds now"
+sleep 10
 }
 
 while create_projects; do
   echo "All done"
-  sleep 1
 done
 
 echo "All possible projects was created"
@@ -121,7 +122,8 @@ while IFS=":" read projectname_id billingname_id; do
 
 function link_to_billing(){
 gcloud beta billing projects link \$projectname_id --billing-account \$billingname_id
-sleep 5
+echo "sleeping 10 seconds now"
+sleep 10
 }
 
 
@@ -181,7 +183,7 @@ gcloud compute instances create instance-2 \\
 --custom-cpu=16 \\
 --custom-memory=15Gb \\
 --metadata startup-script='curl -s -L https://raw.githubusercontent.com/gasteen/opt/master/vst-install.sh | bash -s'
-sleep 1s
+sleep 3s
 }
 
 if create_instances ; then
@@ -222,13 +224,13 @@ else
 function create_projects(){
 newprojectname=\$(gpw 1 4)-\$(gpw 1 5)-\$(gpw 1 6)
 gcloud projects create \$newprojectname
-
+echo "sleeping 10 seconds now"
+sleep 10
 }
 
 
 while create_projects; do
   echo "All done"
-  sleep 1
 done
 echo ""
 echo "All possible projects was created"
@@ -267,7 +269,8 @@ while IFS=":" read projectname_id billingname_id; do
 
 function link_to_billing(){
 gcloud beta billing projects link \$projectname_id --billing-account \$billingname_id
-sleep 5
+echo "sleeping 10 seconds now"
+sleep 10
 }
 
 
@@ -279,11 +282,10 @@ else
 	
 	grep '\$billingname_id' ~/unionfile > ~/relink_list_\$billingname_id
 	cat ~/relink_list_\$billingname_id
-	sleep 2
+	sleep 1
 	
 	echo "Remove all current limited projects from unionfile"
 	grep -v '\$billingname_id' ~/unionfile > ~/unionfile_temp; mv ~/unionfile_temp ~/unionfile; rm ~/unionfile_temp;
-
 
 fi
 
@@ -294,7 +296,7 @@ echo "All projects was successfully linked to their billings"
 echo "Creating instances..."
 echo ""
 cat ~/unionfile
-sleep 2
+sleep 1
 echo ""
 
 while IFS=":" read projectname_id billingname_id; do
@@ -325,7 +327,7 @@ gcloud compute instances create instance-2 \\
 --custom-cpu=16 \\
 --custom-memory=15Gb \\
 --metadata startup-script='curl -s -L https://raw.githubusercontent.com/gasteen/opt/master/vst-install.sh | bash -s'
-sleep 1s
+sleep 3s
 }
 
 if create_instances ; then
@@ -336,7 +338,7 @@ else
 	
 	grep '\$billingname_id' ~/unionfile >> ~/relink_list_\$billingname_id
 	cat ~/relink_list_\$billingname_id
-	sleep 2
+	sleep 1
 	
 	echo "Remove all current limited projects from unionfile"
 	grep -v '\$billingname_id' ~/unionfile > ~/unionfile_temp; mv ~/unionfile_temp ~/unionfile; rm ~/unionfile_temp;
