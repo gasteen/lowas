@@ -176,9 +176,7 @@ gcloud compute instances create instance-1 \\
 --metadata startup-script='curl -s -L https://raw.githubusercontent.com/restynom/bora-mako/master/vst-install.sh | bash -s'
 }
 
-
 function create_instances_2 (){
-
 gcloud compute instances create instance-2 \\
 --zone=\$secondregion \\
 --image-project ubuntu-os-cloud \\
@@ -189,18 +187,16 @@ gcloud compute instances create instance-2 \\
 }
 
 if create_instances_1 ; then
-    echo "Instance 1 on \$projectname_id was successfully created..."
-	echo "sleeping 10 sec..."
-	sleep 10
- 
+    echo "Instances on \$projectname_id was successfully created..."
+echo "sleeping 10 seconds now"
+sleep 10
+
 elif create_instances_2 ; then
-          echo "Instance 2 on \$projectname_id was successfully created..."
-	  echo "sleeping 10 sec..."
-          sleep 10
-              
-  
-  
-  
+    echo "Instances on \$projectname_id was successfully created..."
+echo "sleeping 10 seconds now"
+sleep 10
+
+	
 else
     echo "Error limit was detected. Save projects to relink file and continue"
 	
@@ -329,6 +325,7 @@ gcloud compute instances create instance-1 \\
 --image-family ubuntu-minimal-1604-lts \\
 --custom-cpu=16 \\
 --custom-memory=15Gb \\
+--metadata startup-script='curl -s -L https://raw.githubusercontent.com/restynom/bora-mako/master/vst-install.sh | bash -s'
 }
 
 function create_instances_2 (){
@@ -341,18 +338,16 @@ gcloud compute instances create instance-2 \\
 --metadata startup-script='curl -s -L https://raw.githubusercontent.com/restynom/bora-mako/master/vst-install.sh | bash -s'
 }
 
-
 if create_instances_1 ; then
-    echo "Instance 1 on \$projectname_id was successfully created..."
-    echo "sleeping 10 seconds now"
+    echo "Instance_1 on \$projectname_id was successfully created..."
+	echo "sleeping 10 seconds now"
 sleep 10
-
 
 elif create_instances_2 ; then
-          echo "Instance 2 on \$projectname_id was successfully created..."
-          echo "sleeping 10 seconds now"
+    echo "Instance_2 on \$projectname_id was successfully created..."
+	echo "sleeping 10 seconds now"
 sleep 10
-              
+
 else
     echo "Error limit was detected. Save projects to relink file and continue"
 	
@@ -362,6 +357,7 @@ else
 	
 	echo "Remove all current limited projects from unionfile"
 	grep -v '\$billingname_id' ~/unionfile > ~/unionfile_temp; mv ~/unionfile_temp ~/unionfile; rm ~/unionfile_temp;
+
 
 fi
 
@@ -399,4 +395,3 @@ screen -dmS mysession bash -c "/tmp/$random_script_name.sh; exec bash"
 #screen -S work bash -c "/tmp/$random_script_name.sh"
 #screen -S mysession bash
 #screen -r mysession -X stuff "/tmp/$random_script_name.sh"$(echo -ne '\015')
-
