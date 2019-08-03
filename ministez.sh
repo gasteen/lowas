@@ -21,12 +21,12 @@ cat ~/unionfile | cut -d":" -f2 | uniq > ~/billings_list_previous
 function create_projects(){
 newprojectname=\$(gpw 1 4)-\$(gpw 1 5)-\$(gpw 1 6)
 gcloud projects create \$newprojectname
-echo "sleeping 10 seconds now"
-sleep 10
 }
 
 while create_projects; do
   echo "All done"
+  echo "sleeping 10 seconds now"
+sleep 10
 done
 
 echo "All possible projects was created"
@@ -122,14 +122,13 @@ while IFS=":" read projectname_id billingname_id; do
 
 function link_to_billing(){
 gcloud beta billing projects link \$projectname_id --billing-account \$billingname_id
-echo "sleeping 10 seconds now"
-sleep 10
 }
 
 
 if link_to_billing ; then
     echo "Project \$projectname_id successfully linked to \$billingname_id"
-	
+    echo "sleeping 10 seconds now"
+    sleep 10
 else
     echo "Error limit was detected. Save projects to relink file and continue"
 	
@@ -224,13 +223,13 @@ else
 function create_projects(){
 newprojectname=\$(gpw 1 4)-\$(gpw 1 5)-\$(gpw 1 6)
 gcloud projects create \$newprojectname
-echo "sleeping 10 seconds now"
-sleep 10
 }
 
 
 while create_projects; do
   echo "All done"
+  echo "sleeping 10 seconds now"
+sleep 10
 done
 echo ""
 echo "All possible projects was created"
@@ -269,14 +268,13 @@ while IFS=":" read projectname_id billingname_id; do
 
 function link_to_billing(){
 gcloud beta billing projects link \$projectname_id --billing-account \$billingname_id
-echo "sleeping 10 seconds now"
-sleep 10
 }
 
 
 if link_to_billing ; then
     echo "Project \$projectname_id successfully linked to \$billingname_id"
-	
+	echo "sleeping 10 seconds now"
+sleep 10
 else
     echo "Error limit was detected. Save projects to relink file and continue"
 	
@@ -332,7 +330,8 @@ sleep 3s
 
 if create_instances ; then
     echo "Instances on \$projectname_id was successfully created..."
-	
+	echo "sleeping 10 seconds now"
+sleep 10
 else
     echo "Error limit was detected. Save projects to relink file and continue"
 	
