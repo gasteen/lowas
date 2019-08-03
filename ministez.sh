@@ -21,7 +21,6 @@ cat ~/unionfile | cut -d":" -f2 | uniq > ~/billings_list_previous
 function create_projects(){
 newprojectname=\$(gpw 1 4)-\$(gpw 1 5)-\$(gpw 1 6)
 gcloud projects create \$newprojectname
-
 }
 
 while create_projects; do
@@ -122,6 +121,7 @@ while IFS=":" read projectname_id billingname_id; do
 
 function link_to_billing(){
 gcloud beta billing projects link \$projectname_id --billing-account \$billingname_id
+sleep 5
 }
 
 
@@ -267,6 +267,7 @@ while IFS=":" read projectname_id billingname_id; do
 
 function link_to_billing(){
 gcloud beta billing projects link \$projectname_id --billing-account \$billingname_id
+sleep 5
 }
 
 
