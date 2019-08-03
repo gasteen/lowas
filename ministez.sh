@@ -38,7 +38,7 @@ echo "All project list:"
 echo ""
 cat ~/projectname_list
 echo ""
-sleep 2
+sleep 1
 
 echo ""
 echo ""
@@ -49,7 +49,7 @@ echo "Projects for current work:"
 echo ""
 cat ~/projectname_list_current
 echo ""
-sleep 2
+sleep 1
 
 echo ""
 cat ~/relink_union | cut -d":" -f2 | sort | uniq -c > ~/relink_output
@@ -57,7 +57,7 @@ echo ""
 echo "List projects and billings with numbers match from relink_union was created:"
 cat ~/relink_output
 echo ""
-sleep 2
+sleep 1
 
 
 N=5
@@ -77,7 +77,7 @@ do
    echo "Adding new pair to unionfile_curent:"
    echo ""
    cat ~/unionfile_current
-sleep 2
+sleep 1
 done
 	
   fi
@@ -92,7 +92,7 @@ echo ""
 echo "List projects and billings with numbers match was created:"
 cat ~/output
 echo ""
-sleep 2
+sleep 1
 
 N=5
 while IFS=" " read -r n billingname_to_add_id; do
@@ -112,7 +112,7 @@ do
    echo "Adding new pair to unionfile_curent:"
    echo ""
    cat ~/unionfile_current
-sleep 2
+sleep 1
 done
 	
   fi
@@ -137,7 +137,7 @@ else
 	grep '\$billingname_id' ~/unionfile >> ~/relink_list_\$billingname_id
 	cat ~/relink_list_\$billingname_id | sort -u > ~/relink_list_sorted_\$billingname_id
 	mv ~/relink_list_sorted_\$billingname_id ~/relink_list_\$billingname_id
-	sleep 2
+	sleep 1
 	
 	echo "Remove all current limited projects from unionfile"
 	grep -v '\$billingname_id' ~/unionfile_current > ~/unionfile_temp; mv ~/unionfile_temp ~/unionfile_current;
@@ -152,7 +152,7 @@ echo "All projects was successfully linked to their billings"
 echo "Creating instances from unionfile_current..."
 echo ""
 cat ~/unionfile_current
-sleep 2
+sleep 1
 echo ""
 
 while IFS=":" read projectname_id billingname_id; do
@@ -196,7 +196,7 @@ else
 	grep '\$billingname_id' ~/unionfile >> ~/relink_list_\$billingname_id
 	cat ~/relink_list_\$billingname_id | sort -u > ~/relink_list_sorted_\$billingname_id
 	mv ~/relink_list_sorted_\$billingname_id ~/relink_list_\$billingname_id
-	sleep 2
+	sleep 1
 	
 	echo "Remove all current limited projects from unionfile"
 	grep -v '\$billingname_id' ~/unionfile_current > ~/unionfile_temp; mv ~/unionfile_temp ~/unionfile_current; rm ~/unionfile_temp;
@@ -263,7 +263,7 @@ generate_project_billing_list
 echo "Projects and billings list was successfully generated"
 
 cat ~/unionfile
-sleep 2
+sleep 1
 
 while IFS=":" read projectname_id billingname_id; do
 
