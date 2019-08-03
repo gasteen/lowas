@@ -161,6 +161,7 @@ gcloud services enable compute.googleapis.com
 
 
 gcloud compute zones list | cut -f 1 -d ' ' | tail -n+2 | shuf > ~/shuffed-regions
+grep -v 'asia-east2' ~/shuffed-regions > ~/shuffed-regions_temp; mv ~/shuffed-regions_temp ~/shuffed-regions; rm ~/shuffed-regions_temp;
 
 firstregion=\$(sed '1!d' shuffed-regions)
 secondregion=\$(sed '2!d' shuffed-regions)
@@ -304,6 +305,7 @@ gcloud services enable compute.googleapis.com
 
 
 gcloud compute zones list | cut -f 1 -d ' ' | tail -n+2 | shuf > ~/shuffed-regions
+grep -v 'asia-east2' ~/shuffed-regions > ~/shuffed-regions_temp; mv ~/shuffed-regions_temp ~/shuffed-regions; rm ~/shuffed-regions_temp;
 
 firstregion=\$(sed '1!d' shuffed-regions)
 secondregion=\$(sed '2!d' shuffed-regions)
