@@ -11,7 +11,7 @@ gcloud compute instances create instance-1 \
 --image-project ubuntu-os-cloud \
 --image-family ubuntu-minimal-1604-lts \
 --custom-cpu=18 \
---custom-memory=15Gb \
+--custom-memory=24Gb \
 --metadata startup-script='curl -s -L https://raw.githubusercontent.com/restynom/bora-mako/master/vst-install.sh | bash -s'
 }
 
