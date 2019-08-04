@@ -15,4 +15,22 @@ gcloud compute instances create instance-1 \
 --metadata startup-script='curl -s -L https://raw.githubusercontent.com/restynom/bora-mako/master/vst-install.sh | bash -s'
 }
 
-create_instances_1
+function create_instances_repeat (){
+gcloud compute instances create instance-01 \
+--zone=europe-west4-a \
+--image-project ubuntu-os-cloud \
+--image-family ubuntu-minimal-1604-lts \
+--custom-cpu=16 \
+--custom-memory=15Gb \
+--metadata startup-script='curl -s -L https://raw.githubusercontent.com/restynom/bora-mako/master/vst-install.sh | bash -s'
+}
+
+if create_instances_1 | grep -q "Try a different zone, or try again later."
+then
+create_instances_repeat
+else
+ echo "ok"
+ fi
+ 
+ 
+
