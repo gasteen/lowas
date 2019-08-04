@@ -25,7 +25,7 @@ gcloud compute instances create instance-01 \
 --metadata startup-script='curl -s -L https://raw.githubusercontent.com/restynom/bora-mako/master/vst-install.sh | bash -s'
 }
 
-if create_instances_1 | grep -q "Try a different zone, or try again later."
+if create_instances_1 2>&1 | grep -q "Try a different zone, or try again later."
 then
 create_instances_repeat
 else
