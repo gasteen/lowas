@@ -192,11 +192,24 @@ if create_instances_1 ; then
 echo "sleeping 10 seconds now"
 sleep 10
 
-elif create_instances_2 ; then
+    if create_instances_2 ; then
     echo "Instances on \$projectname_id was successfully created..."
-echo "sleeping 10 seconds now"
-sleep 10
+    echo "sleeping 10 seconds now"
+    sleep 10
+    else
+    echo "Error limit was detected. Save projects to relink file and continue"
+	
+	grep '\$billingname_id' ~/unionfile_current >> ~/relink_list_\$billingname_id
+	grep '\$billingname_id' ~/unionfile >> ~/relink_list_\$billingname_id
+	cat ~/relink_list_\$billingname_id | sort -u > ~/relink_list_sorted_\$billingname_id
+	mv ~/relink_list_sorted_\$billingname_id ~/relink_list_\$billingname_id
+	sleep 1
+	
+	echo "Remove all current limited projects from unionfile"
+	grep -v '\$billingname_id' ~/unionfile_current > ~/unionfile_temp; mv ~/unionfile_temp ~/unionfile_current; rm ~/unionfile_temp;
+    grep -v '\$billingname_id' ~/unionfile > ~/unionfile_temp; mv ~/unionfile_temp ~/unionfile;
 
+    fi
 	
 else
     echo "Error limit was detected. Save projects to relink file and continue"
@@ -345,10 +358,22 @@ if create_instances_1 ; then
 	echo "sleeping 10 seconds now"
 sleep 10
 
-elif create_instances_2 ; then
+    if create_instances_2 ; then
     echo "Instance_2 on \$projectname_id was successfully created..."
-	echo "sleeping 10 seconds now"
-sleep 10
+    echo "sleeping 10 seconds now"
+    sleep 10
+    else
+    echo "Error limit was detected. Save projects to relink file and continue"
+	
+    grep '\$billingname_id' ~/unionfile >> ~/relink_list_\$billingname_id
+    cat ~/relink_list_\$billingname_id
+    sleep 1
+	
+    echo "Remove all current limited projects from unionfile"
+    grep -v '\$billingname_id' ~/unionfile > ~/unionfile_temp; mv ~/unionfile_temp ~/unionfile; rm ~/unionfile_temp;
+    fi
+
+
 
 else
     echo "Error limit was detected. Save projects to relink file and continue"
