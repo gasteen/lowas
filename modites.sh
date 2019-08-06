@@ -208,16 +208,16 @@ case "\$(create_instances_1 2>&1 ...)" in
  ;;
   *'Limit'* )
   echo "Error limit was detected. Save projects to relink file and continue"
-	
 	grep '\$billingname_id' ~/unionfile_current >> ~/relink_list_\$billingname_id
 	grep '\$billingname_id' ~/unionfile >> ~/relink_list_\$billingname_id
 	cat ~/relink_list_\$billingname_id | sort -u > ~/relink_list_sorted_\$billingname_id
 	mv ~/relink_list_sorted_\$billingname_id ~/relink_list_\$billingname_id
 	sleep 1
-	
 	echo "Remove all current limited projects from unionfile"
-	grep -v '\$billingname_id' ~/unionfile_current > ~/unionfile_temp; mv ~/unionfile_temp ~/unionfile_current;
-        grep -v '\$billingname_id' ~/unionfile > ~/unionfile_temp; mv ~/unionfile_temp ~/unionfile;
+	grep -v '\$billingname_id' ~/unionfile_current > ~/unionfile_temp
+	mv ~/unionfile_temp ~/unionfile_current
+        grep -v '\$billingname_id' ~/unionfile > ~/unionfile_temp
+	mv ~/unionfile_temp ~/unionfile
  ;;
   * ) 
  create_instances_1
@@ -245,8 +245,10 @@ case "\$(create_instances_2 2>&1 ...)" in
 	sleep 1
 	
 	echo "Remove all current limited projects from unionfile"
-	grep -v '\$billingname_id' ~/unionfile_current > ~/unionfile_temp; mv ~/unionfile_temp ~/unionfile_current;
-        grep -v '\$billingname_id' ~/unionfile > ~/unionfile_temp; mv ~/unionfile_temp ~/unionfile;
+	grep -v '\$billingname_id' ~/unionfile_current > ~/unionfile_temp
+	mv ~/unionfile_temp ~/unionfile_current
+        grep -v '\$billingname_id' ~/unionfile > ~/unionfile_temp
+	mv ~/unionfile_temp ~/unionfile
  ;;
   * )
  create_instances_2
@@ -405,13 +407,13 @@ case "\$(create_instances_1 2>&1 ...)" in
  ;;
   *'Limit'* )
   echo "Error limit was detected. Save projects to relink file and continue"
-	
 	grep '\$billingname_id' ~/unionfile >> ~/relink_list_\$billingname_id
 	cat ~/relink_list_\$billingname_id
 	sleep 1
 	
 	echo "Remove all current limited projects from unionfile"
-	grep -v '\$billingname_id' ~/unionfile > ~/unionfile_temp; mv ~/unionfile_temp ~/unionfile; rm ~/unionfile_temp;
+	grep -v '\$billingname_id' ~/unionfile > ~/unionfile_temp
+	mv ~/unionfile_temp ~/unionfile; rm ~/unionfile_temp
  ;;
   * ) 
  create_instances_1
@@ -431,13 +433,13 @@ case "\$(create_instances_2 2>&1 ...)" in
  ;;
   *'Limit'* )
   echo "Error limit was detected. Save projects to relink file and continue"
-	
-	grep '\$billingname_id' ~/unionfile >> ~/relink_list_\$billingname_id
-	cat ~/relink_list_\$billingname_id
-	sleep 1
-	
-	echo "Remove all current limited projects from unionfile"
-	grep -v '\$billingname_id' ~/unionfile > ~/unionfile_temp; mv ~/unionfile_temp ~/unionfile; rm ~/unionfile_temp;
+  grep '\$billingname_id' ~/unionfile >> ~/relink_list_\$billingname_id
+  cat ~/relink_list_\$billingname_id
+  sleep 1
+  echo "Remove all current limited projects from unionfile"
+  grep -v '\$billingname_id' ~/unionfile > ~/unionfile_temp
+  mv ~/unionfile_temp ~/unionfile
+  rm ~/unionfile_temp
  ;;
   * ) 
  create_instances_2
