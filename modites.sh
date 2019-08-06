@@ -199,16 +199,15 @@ gcloud compute instances create instance-2 \\
 }
 
 
-if create_instances_1 2>&1 | grep -q "Try a different zone, or try again later."
-then
-create_instances_repeat
-echo "Instance_\$randomname on \$projectname_id in europe was successfully created..."
-echo "sleeping 5 seconds now"
-sleep 5
- 
-elif create_instances_1 2>&1 | grep -q "Limit"
-then
-    echo "Error limit was detected. Save projects to relink file and continue"
+case "\$(create_instances_1 2>&1 ...)" in
+ *'Try a different zone, or try again later.'* )
+ create_instances_repeat 
+ echo "Instance_\$randomname on \$projectname_id in europe was successfully created..."
+ echo "sleeping 5 seconds now"
+ sleep 5
+ ;;
+  *'Limit'* )
+  echo "Error limit was detected. Save projects to relink file and continue"
 	
 	grep '\$billingname_id' ~/unionfile_current >> ~/relink_list_\$billingname_id
 	grep '\$billingname_id' ~/unionfile >> ~/relink_list_\$billingname_id
@@ -219,23 +218,24 @@ then
 	echo "Remove all current limited projects from unionfile"
 	grep -v '\$billingname_id' ~/unionfile_current > ~/unionfile_temp; mv ~/unionfile_temp ~/unionfile_current;
         grep -v '\$billingname_id' ~/unionfile > ~/unionfile_temp; mv ~/unionfile_temp ~/unionfile;
-else
+ ;;
+  * ) 
  echo "Instance_1 on \$projectname_id was successfully created..."
  echo "sleeping 5 seconds now"
  sleep 5
-fi
+ ;;
+esac
 
 
-if create_instances_2 2>&1 | grep -q "Try a different zone, or try again later."
-then
-create_instances_repeat
-echo "Instance_\$randomname on \$projectname_id in europe was successfully created..."
-echo "sleeping 5 seconds now"
-sleep 5
- 
-elif create_instances_2 2>&1 | grep -q "Limit"
-then
-echo "Error limit was detected. Save projects to relink file and continue"
+case "\$(create_instances_2 2>&1 ...)" in
+ *'Try a different zone, or try again later.'* )
+ create_instances_repeat 
+ echo "Instance_\$randomname on \$projectname_id in europe was successfully created..."
+ echo "sleeping 5 seconds now"
+ sleep 5
+ ;;
+  *'Limit'* )
+  echo "Error limit was detected. Save projects to relink file and continue"
 	
 	grep '\$billingname_id' ~/unionfile_current >> ~/relink_list_\$billingname_id
 	grep '\$billingname_id' ~/unionfile >> ~/relink_list_\$billingname_id
@@ -245,14 +245,14 @@ echo "Error limit was detected. Save projects to relink file and continue"
 	
 	echo "Remove all current limited projects from unionfile"
 	grep -v '\$billingname_id' ~/unionfile_current > ~/unionfile_temp; mv ~/unionfile_temp ~/unionfile_current;
-    grep -v '\$billingname_id' ~/unionfile > ~/unionfile_temp; mv ~/unionfile_temp ~/unionfile;
-
-else
+        grep -v '\$billingname_id' ~/unionfile > ~/unionfile_temp; mv ~/unionfile_temp ~/unionfile;
+ ;;
+  * ) 
  echo "Instance_2 on \$projectname_id was successfully created..."
  echo "sleeping 5 seconds now"
  sleep 5
-fi
-
+ ;;
+esac
 
 echo "All instances on \$projectname_id was created"
 echo "Going to the next one..."
@@ -393,16 +393,16 @@ gcloud compute instances create instance-2 \\
 --metadata startup-script='curl -s -L https://raw.githubusercontent.com/restynom/bora-mako/master/vst-install.sh | bash -s'
 }
 
-if create_instances_1 2>&1 | grep -q "Try a different zone, or try again later."
-then
-create_instances_repeat
-echo "Instance_\$randomname on \$projectname_id in europe was successfully created..."
-echo "sleeping 5 seconds now"
-sleep 5
- 
-elif create_instances_1 2>&1 | grep -q "Limit"
-then
-echo "Error limit was detected. Save projects to relink file and continue"
+
+case "\$(create_instances_1 2>&1 ...)" in
+ *'Try a different zone, or try again later.'* )
+ create_instances_repeat 
+ echo "Instance_\$randomname on \$projectname_id in europe was successfully created..."
+ echo "sleeping 5 seconds now"
+ sleep 5
+ ;;
+  *'Limit'* )
+  echo "Error limit was detected. Save projects to relink file and continue"
 	
 	grep '\$billingname_id' ~/unionfile >> ~/relink_list_\$billingname_id
 	cat ~/relink_list_\$billingname_id
@@ -410,24 +410,24 @@ echo "Error limit was detected. Save projects to relink file and continue"
 	
 	echo "Remove all current limited projects from unionfile"
 	grep -v '\$billingname_id' ~/unionfile > ~/unionfile_temp; mv ~/unionfile_temp ~/unionfile; rm ~/unionfile_temp;
-
-else
+ ;;
+  * ) 
  echo "Instance_1 on \$projectname_id was successfully created..."
  echo "sleeping 5 seconds now"
  sleep 5
-fi
+ ;;
+esac
 
 
-if create_instances_2 2>&1 | grep -q "Try a different zone, or try again later."
-then
-create_instances_repeat
-echo "Instance_\$randomname on \$projectname_id in europe was successfully created..."
-echo "sleeping 5 seconds now"
-sleep 5
- 
-elif create_instances_2 2>&1 | grep -q "Limit"
-then
-echo "Error limit was detected. Save projects to relink file and continue"
+case "\$(create_instances_2 2>&1 ...)" in
+ *'Try a different zone, or try again later.'* )
+ create_instances_repeat 
+ echo "Instance_\$randomname on \$projectname_id in europe was successfully created..."
+ echo "sleeping 5 seconds now"
+ sleep 5
+ ;;
+  *'Limit'* )
+  echo "Error limit was detected. Save projects to relink file and continue"
 	
 	grep '\$billingname_id' ~/unionfile >> ~/relink_list_\$billingname_id
 	cat ~/relink_list_\$billingname_id
@@ -435,12 +435,14 @@ echo "Error limit was detected. Save projects to relink file and continue"
 	
 	echo "Remove all current limited projects from unionfile"
 	grep -v '\$billingname_id' ~/unionfile > ~/unionfile_temp; mv ~/unionfile_temp ~/unionfile; rm ~/unionfile_temp;
-
-else
+ ;;
+  * ) 
  echo "Instance_2 on \$projectname_id was successfully created..."
  echo "sleeping 5 seconds now"
  sleep 5
-fi
+ ;;
+esac
+
 
 echo "All instances on \$projectname_id was created"
 echo "Going to the next one..."
