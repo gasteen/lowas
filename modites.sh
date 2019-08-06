@@ -220,6 +220,7 @@ case "\$(create_instances_1 2>&1 ...)" in
         grep -v '\$billingname_id' ~/unionfile > ~/unionfile_temp; mv ~/unionfile_temp ~/unionfile;
  ;;
   * ) 
+ create_instances_1
  echo "Instance_1 on \$projectname_id was successfully created..."
  echo "sleeping 5 seconds now"
  sleep 5
@@ -247,7 +248,8 @@ case "\$(create_instances_2 2>&1 ...)" in
 	grep -v '\$billingname_id' ~/unionfile_current > ~/unionfile_temp; mv ~/unionfile_temp ~/unionfile_current;
         grep -v '\$billingname_id' ~/unionfile > ~/unionfile_temp; mv ~/unionfile_temp ~/unionfile;
  ;;
-  * ) 
+  * )
+ create_instances_2
  echo "Instance_2 on \$projectname_id was successfully created..."
  echo "sleeping 5 seconds now"
  sleep 5
@@ -412,6 +414,7 @@ case "\$(create_instances_1 2>&1 ...)" in
 	grep -v '\$billingname_id' ~/unionfile > ~/unionfile_temp; mv ~/unionfile_temp ~/unionfile; rm ~/unionfile_temp;
  ;;
   * ) 
+ create_instances_1
  echo "Instance_1 on \$projectname_id was successfully created..."
  echo "sleeping 5 seconds now"
  sleep 5
@@ -437,6 +440,7 @@ case "\$(create_instances_2 2>&1 ...)" in
 	grep -v '\$billingname_id' ~/unionfile > ~/unionfile_temp; mv ~/unionfile_temp ~/unionfile; rm ~/unionfile_temp;
  ;;
   * ) 
+ create_instances_2
  echo "Instance_2 on \$projectname_id was successfully created..."
  echo "sleeping 5 seconds now"
  sleep 5
