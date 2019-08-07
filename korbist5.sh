@@ -236,8 +236,9 @@ else
     echo "Starting first time script now..."
 ##################################################################
 ##################################################################
-first_project_to_unlink=\$(gcloud projects list | grep "My Project" | cut -f 1 -d ' ')
+while read first_project_to_unlink; do
 gcloud beta billing projects unlink \$first_project_to_unlink
+done < <(gcloud projects list | grep "My Project" | cut -f 1 -d ' ')
 
 function create_projects(){
 newprojectname=\$(gpw 1 4)-\$(gpw 1 5)-\$(gpw 1 6)
