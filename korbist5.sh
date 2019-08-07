@@ -450,6 +450,9 @@ case "\$(create_instances_2 2>&1 ...)" in
  ;;
 esac
 echo "All instances on \$projectname_id was created"
+echo " "
+gcloud compute instances list
+echo " "
 echo "Going to the next one..."
 done < ~/unionfile
 
