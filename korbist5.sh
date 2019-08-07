@@ -317,8 +317,17 @@ else
 done < ~/relink_limited_union
 
 echo ""
-echo "Errors dyring relink:"
+#echo "Errors dyring relink:"
+#cat ~/relink_limited_union
+#[[ -s ~/relink_limited_union ]] || { [[ -f ~/relink_limited_union ]] && echo 'empty' || echo 'does not exist'; }
+if [[ -s ~/relink_limited_union ]]; then 
+echo "There is error during relink:"
+echo ""
 cat ~/relink_limited_union
+else
+echo ""
+echo "All relink projects was successfully linked to their billings"
+fi
 echo ""
 echo "All others projects was successfully linked to their billings"
 echo "Creating instances..."
