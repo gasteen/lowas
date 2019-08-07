@@ -278,8 +278,13 @@ else
    echo "Файл '\$FILEUNION' не найден."
     echo "Starting first time script now..."
 
-first_project_to_unlink=$(gcloud projects list | grep "My Project" | cut -f 1 -d ' ')
-gcloud beta billing projects unlink $first_project_to_unlink
+
+
+
+
+while read first_project_to_unlink; do
+gcloud beta billing projects unlink \$first_project_to_unlink
+done < <(gcloud projects list | grep "My Project" | cut -f 1 -d ' ')
 
 
 function create_projects(){
