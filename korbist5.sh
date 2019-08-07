@@ -13,6 +13,7 @@ if [ -f \$FILEUNION ]; then
    echo "Файл '\$FILEUNION' существует."
    echo "Starting one more time script now..."
 cat ~/unionfile | cut -d":" -f1 | uniq > ~/projectname_list_previous
+cat ~/projectname_unused >> ~/projectname_list_previous
 cat ~/unionfile | cut -d":" -f2 | uniq > ~/billings_list_previous
 function create_projects(){
 newprojectname=\$(gpw 1 4)-\$(gpw 1 5)-\$(gpw 1 6)
@@ -229,10 +230,15 @@ rm ~/billinga* ~/projectsa* ~/shuffed-regions
 echo "All is done!"
 echo ""
 else
+##################################################################
+##################################################################
    echo "Файл '\$FILEUNION' не найден."
     echo "Starting first time script now..."
+##################################################################
+##################################################################
 first_project_to_unlink=$(gcloud projects list | grep "My Project" | cut -f 1 -d ' ')
 gcloud beta billing projects unlink $first_project_to_unlink
+
 function create_projects(){
 newprojectname=\$(gpw 1 4)-\$(gpw 1 5)-\$(gpw 1 6)
 gcloud projects create \$newprojectname
@@ -245,7 +251,7 @@ done
 echo ""
 echo "All possible projects was created"
 gcloud projects list | cut -f 1 -d ' ' | tail -n+2 > ~/projectname_list
-split ~/projectname_list -l3 projects
+split ~/projectname_list -l5 projects
 gcloud beta billing accounts list | cut -f 1 -d ' ' | tail -n+2 > ~/billings_list
 split ~/billings_list -l1 billing
 function generate_project_billing_list(){
@@ -261,8 +267,10 @@ done
 }
 generate_project_billing_list
 echo "Projects and billings list was successfully generated"
+sort -t: -k2 -o ~/unionfile{,}
 cat ~/unionfile
 sleep 1
+
 while IFS=":" read projectname_id billingname_id; do
 function link_to_billing(){
 gcloud beta billing projects link \$projectname_id --billing-account \$billingname_id
@@ -275,14 +283,44 @@ else
     echo "Error limit was detected. Save projects to relink file and continue"
 	
 	grep '\$billingname_id' ~/unionfile > ~/relink_list_\$billingname_id
+	sort -t: -k2 -o ~/relink_list_\$billingname_id{,}
 	cat ~/relink_list_\$billingname_id
 	sleep 1
-	
-	echo "Remove all current limited projects from unionfile"
-	grep -v '\$billingname_id' ~/unionfile > ~/unionfile_temp; mv ~/unionfile_temp ~/unionfile; rm ~/unionfile_temp;
+	cat ~/relink_list_\$billingname_id | head -n 3 > ~/relink_limited_\$billingname_id
+        sed -i "1,3 d" ~/relink_list_\$billingname_id
+        cat ~/relink_list_\$billingname_id | cut -d: -f1 >> ~/projectname_unused
+        echo "Remove all current limited projects from unionfile"
+        grep -v '\$billingname_id' ~/unionfile > ~/unionfile_temp
+        mv ~/unionfile_temp ~/unionfile
+
+
 fi
 done < ~/unionfile
-echo "All projects was successfully linked to their billings"
+
+cat ~/relink_limited_* > ~/relink_limited_union
+
+while IFS=":" read projectname_id_r billingname_id_r; do
+function relink_to_billing(){
+gcloud beta billing projects link \$projectname_id_r --billing-account \$billingname_id_r
+}
+if relink_to_billing ; then
+    echo "Project \$projectname_id_r successfully linked to \$billingname_id_r"
+	
+	grep '\$billingname_id' ~/relink_limited_union >> ~/unionfile
+	grep -v '\$billingname_id' ~/relink_limited_union > ~/relink_limited_union_temp
+        mv ~/relink_limited_union_temp ~/relink_limited_union
+	echo "sleeping 10 seconds now"
+sleep 10
+else
+    echo "Error. Ignoring and continue"
+
+done < ~/relink_limited_union
+
+echo ""
+echo "Errors dyring relink:"
+cat ~/relink_limited_union
+echo ""
+echo "All others projects was successfully linked to their billings"
 echo "Creating instances..."
 echo ""
 cat ~/unionfile
@@ -361,6 +399,7 @@ case "\$(create_instances_1 2>&1 ...)" in
  sleep 5
  ;;
 esac
+
 case "\$(create_instances_2 2>&1 ...)" in
  *'Try a different zone, or try again later.'* )
  create_instances_repeat 
@@ -404,6 +443,7 @@ esac
 echo "All instances on \$projectname_id was created"
 echo "Going to the next one..."
 done < ~/unionfile
+
 #cat ~/relink_list_* > ~/relink_union 
 #rm ~/relink_list_*
 echo "Some cleaning..."
