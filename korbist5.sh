@@ -313,7 +313,7 @@ if relink_to_billing ; then
 sleep 10
 else
     echo "Error. Ignoring and continue"
-
+fi
 done < ~/relink_limited_union
 
 echo ""
